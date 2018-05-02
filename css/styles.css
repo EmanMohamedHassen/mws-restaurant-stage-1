@@ -91,7 +91,7 @@ nav h1 a {
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-    color: #0275d8;
+    color: #410000;
     text-decoration: none;
 }
 
@@ -110,7 +110,7 @@ nav h1 a {
 /*===========Media Query=============*/
 
      @media only  screen and (min-width: 800px){
-         #map-container ,  #filter-container {
+         .map ,  #filter-container {
             width: 800px;
             margin-left: calc((100% - 800px)/2);
             margin-right: calc((100% - 800px)/2);
@@ -223,10 +223,10 @@ nav h1 a {
 .inside #footer {
   bottom: 0;
   position: absolute;
-  width: 50%;
+  width: 100%;
 }
 #restaurant-name {
-  color: #f18200;
+  color: #6C0445;
   font-family: Arial,sans-serif;
   font-size: 20pt;
   font-weight: 200;
@@ -291,4 +291,5 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
 
