@@ -4,6 +4,7 @@ var map;
 /**
  * Initialize Google map, called from HTML.
  */
+
 window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
@@ -15,11 +16,10 @@ window.initMap = () => {
         scrollwheel: false
       });
       fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+      DBHelper.mapMarkerForRestaurant(self.restaurant,self.map);
     }
   });
 }
-
 /**
  * Get current restaurant from page URL.
  */
@@ -56,8 +56,9 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.className = 'restaurant-img';
+    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.alt = restaurant.name + "  image";
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
