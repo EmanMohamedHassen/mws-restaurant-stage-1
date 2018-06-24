@@ -49,6 +49,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
     background-color: #f3f3f3;
     min-height: 100%;
+    width: 100%;
 }
 
 #footer {
@@ -122,24 +123,26 @@ nav {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
     width: 100%;
-    height: 50px;
     background-color: #3397DB;
     align-items: center;
-    margin-bottom: 30px;
+    
 }
 
     .filter-options h2 {
-        font-size: 1rem;
-        font-weight: normal;
-        line-height: 1;
-        margin: 0 20px;
+        font-size: 1.5rem;
+        font-weight: bold;
+/*        line-height: 1;*/
+/*        margin: 0 20px;*/
         color: #010003;
-        text-align: center;
-        padding: 1.5em;
+        display: inline;
+        color: #fff;
+        margin-left: 10px;
+/*        text-align: center;*/
+/*        padding: 1.5em;*/
     }
 
     .filter-options select {
-        background-color: white;
+/*        background-color: white;*/
         border: 1px solid #fff;
         font-family: Arial,sans-serif;
         font-size: 11pt;
@@ -152,9 +155,9 @@ nav {
 
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
+    position: relative;
     background-color: #f3f3f3;
     list-style: outside none none;
-    margin-top: 25px;
     padding: 30px 15px 60px;
     text-align: center;
     display: block;
@@ -164,12 +167,14 @@ nav {
         background-color: #fff;
         border: 2px solid #ccc;
         font-family: Arial,sans-serif;
-        margin: 15px;
         min-height: 380px;
         padding: 0 30px 25px;
         text-align: left;
         width: 100%;
-        display: block;
+        display: inline-block;
+        max-width: 400px;
+        height: auto;
+        margin: 10px 10px;
     }
 
     #restaurants-list .restaurant-img {
@@ -235,7 +240,7 @@ nav {
 
 .inside #footer {
     bottom: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
 }
 
@@ -303,7 +308,7 @@ nav {
         list-style-type: none;
         margin: 0 0 30px;
         overflow: hidden;
-        padding: 0 20px 20px;
+        padding: 5px 20px 20px;
         position: relative;
         width: 80%;
     }
@@ -317,96 +322,3 @@ nav {
 }
 /*=====================Media Query=====================*/
 
-@media only screen and (min-width: 800px) {
-    .map, #filter-container {
-        width: 800px;
-        margin-left: calc((100% - 800px)/2);
-        margin-right: calc((100% - 800px)/2);
-    }
-   
-}
-
-@media only screen and (min-width: 501px) and (max-width: 900px) {
-    #maincontent {
-        width: 900px;
-        height: 100%;
-    }
-
-   .inside{
-       display: flex;
-       flex-wrap: wrap;
-   }
-    .inside #map-container {
-        height: 400px;
-        position: relative;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-
-   .inside #restaurant-container {
-        width: 100%;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
-        height: 50%;
-        padding: 20px;
-    }
-    .inside #reviews-container{
-        height: 50%;
-        margin-bottom: 20px;
-    }
-    .inside #footer{
-        bottom: 0;
-    }
-    .inside #restaurant-address , #restaurant-cuisine{
-        font-size: 16pt;
-    }
-    #reviews-list li {
-        margin: 10px;
-        width: 100%;
-    }
-    #reviews-container {
-        width: 80%;
-        padding: 20px;
-       
-    }
-}
-
-/*@media only screen and (max-width: 500px) {
-
-    .inside #maincontent {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        margin: 0;
-        right: 0;
-        padding: 0;
-    }
-
-    .inside header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-    }
-
-    .inside #map-container {
-        width: 100%;
-        height: 20%;
-    }
-
-    #restaurant-container {
-        width: 100%;
-        height: 50%;
-        margin: 10px;
-    }
-
-    #restaurant-list {
-        width: 100%;
-    }
-
-    #reviews-list {
-        position: relative;
-    }
-}*/
