@@ -51,14 +51,19 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+     name.tabIndex = "0";
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
+    address.tabIndex = "0";
 
   const image = document.getElementById('restaurant-img');
     image.className = 'restaurant-img';
     image.src = DBHelper.imageUrlForRestaurant(restaurant);
     image.alt = restaurant.name + "  image";
+    image.tabIndex = "0";
+    image.setAttribute('srcset',`/images/${restaurant.id}-small_1x.jpg 1x,/images/${restaurant.id}-small_2x.jpg 2x`);
+    image.setAttribute('srcset',`/images/${restaurant.id}-larg_1x.jpg 1x,/images/${restaurant.id}-larg_2x.jpg 2x`);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -76,6 +81,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
+    hours.tabIndex = "0";
   for (let key in operatingHours) {
     const row = document.createElement('tr');
 
@@ -98,6 +104,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
+    title.tabIndex = "0";
   container.appendChild(title);
 
   if (!reviews) {
@@ -121,6 +128,7 @@ createReviewHTML = (review) => {
   const name = document.createElement('p');
   name.innerHTML = review.name;
   li.appendChild(name);
+    li.tabIndex = "0";
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
@@ -144,6 +152,7 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
+    li.tabIndex = "0";
   breadcrumb.appendChild(li);
 }
 
