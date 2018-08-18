@@ -17,7 +17,7 @@ app.get('/sw.js', (req, res) => {
   .catch(function(error) {
     console.log('Service worker registration failed, error:', error);
   });
-} });
+} });                      
 
 class DBHelper {
 
@@ -28,8 +28,14 @@ class DBHelper {
   static get DATABASE_URL() {
     const port = 8000 // Change this to your server port
     return `http://localhost:${port}/data/restaurants.json`;
+     $.get( "ajax/test.html", function( data ) {
+  $( ".result" ).html( data );
+  alert( "Load was performed." );
+});
   }
 
+    
+    
   /**
    * Fetch all restaurants.
    */
