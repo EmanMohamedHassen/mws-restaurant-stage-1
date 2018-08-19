@@ -52,7 +52,20 @@ class DBHelper {
           callback(null, restaurants);
 
 
-       
+          var request = indexedDB.open('RestaurantDB', 1);
+          request.onerror = function (event) {
+              alert("Database error: " + event.target.errorCode);
+          };
+          request.onupgradeneeded = function (event) {
+              var db = event.target.result;
+              var objectStore = db.createObjectStore("restaurants", { keyPath: "id" });
+              objectStore.transaction.oncomplete = function (event) {
+                  var restaurantObjectStore = db.transaction("restaurants", "readwrite").objectStore("restaurants");
+                  restaurants.forEach(function (restaurant) {
+                      restaurantObjectStore.add(restaurant);
+                  });
+              };
+          };
 
 
      }));
