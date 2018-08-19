@@ -171,3 +171,34 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+
+getReview = () => {
+    // event.preventDefault();
+
+    const restaurantId = getParameterByName('id');
+    const name = document.getElementById('name').value;
+    const rating = document.querySelector('#rating option:checked').value;
+    const comment = document.getElementById('commnet').value;
+
+    const review = {
+        "restaurantId": restaurantId,
+        "name": name,
+        "rating": rating,
+        "Comment": comment,
+        "Date": new Date()
+    }
+
+    DBHelper.getReview(review).then(() => {
+        const container = document.getElementById('reviews-container');
+        const ul = document.getElementById('reviews-list');
+        ul.insertBefore(createReviewHTML(review), ul.firstChild);
+        container.appendChild(ul);
+    }).catch((offlineReview) => {
+        console.log(offlineReview);
+        const ul = document.getElementById('reviews-list');
+        ul.appendChild(createReviewHTML(offlineReview.data));
+    })
+    document.getElementById('restaurant-review').reset();
+}
