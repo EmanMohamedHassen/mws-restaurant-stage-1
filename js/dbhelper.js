@@ -21,6 +21,7 @@ window.addEventListener('load', (event) => {
     }
 });                      
 
+
 class DBHelper {
 
   /**
@@ -39,9 +40,7 @@ class DBHelper {
       fetch(DBHelper.DATABASE_URL, {
           method: 'GET'
       }).then(response => response.json().then(function (restaurants) {
-          console.log(restaurants);
           callback(null, restaurants);
-
 
           var request = indexedDB.open('RestaurantDB', 1);
           request.onerror = function (event) {

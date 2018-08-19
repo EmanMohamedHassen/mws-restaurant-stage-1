@@ -1,9 +1,11 @@
-const cache = "res-v1";
+
+const cache = "rest-v1";
 self.addEventListener('fetch', function(event) {
   event.respondWith(
       caches.match(event.request).then(function(response) {
         if (response) {
-                    return response;
+             return response;
+           
         }
 
         return fetch(event.request).then(function(response) {
@@ -17,9 +19,11 @@ self.addEventListener('fetch', function(event) {
             return caches.open(cache).then(function(cache) {
               cache.put(event.request, response.clone());
               return response;
+               
             });
           } else {
             return response;
+          
           }
         });
       })
