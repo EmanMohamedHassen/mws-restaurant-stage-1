@@ -32,15 +32,6 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
-    //static fetchRestaurants(callback) {
-    //    fetch(DBHelper.DATABASE_URL, { method: 'GET' })
-    //        .then(response => response.json().then(result => () => {
-    //            console.log(result);
-    //            callback(null, restaurants);
-    //        }));
-    //   // DBHelper.fetchRestaurantsAgain();
-    //}
-
   /**
    * Fetch all restaurants.
    */
