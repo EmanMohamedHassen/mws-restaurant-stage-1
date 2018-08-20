@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+﻿ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -55,19 +55,19 @@
         <button class="open-button" onclick="openForm()">Add Review</button>
 
         <div class="form-popup" id="myForm">
-            <form action="getReview()" class="form-container">
-                <h1>Login</h1>
+            <form  class="form-container">
+                <h1>Add Review</h1>
 
                 <label for="name"><b>Name:</b></label>
                 <input type="text" placeholder="Enter Your Name" name="name" id="name" required>
 
                 <label for="rating" ><b>Rating:</b></label>
-                <input type="text" placeholder="Enter A Rating" name="rating" id="rating" required>
+                <input type="text" placeholder="Enter A Rating max 5" max="5" name="rating" id="rating" required>
 
                 <label for="comment"><b>Comment:</b></label>
                 <input type="text" placeholder="Enter Your Comment" name="comment" id="comment" required>
 
-                <button type="submit" class="btn">Save</button>
+                <button type="button" onclick="getReview()" class="btn">Save</button>
                 <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
             </form>
         </div>

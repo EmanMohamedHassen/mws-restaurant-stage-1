@@ -33,6 +33,11 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+
+    static get Reviews_Database() {
+        const port = 1337
+        return  `http://localhost:${port}/reviews`;
+    }
   /**
    * Fetch all restaurants.
    */
@@ -197,6 +202,79 @@ class DBHelper {
       animation: google.maps.Animation.DROP}
     );
     return marker;
-  }
+    }
+
+
+
+    static addReview(review) {
+        debugger;
+        const offlineReview = {
+            name: 'addReview',
+            data: review,
+            object_type: 'review'
+        }
+        if (!navigator.onLine) {
+            DBHelper.sendOnline(offlineReview);
+            return Promise.reject(offlineReview);
+        }
+        return DBHelper.sendReview(review)
+    }
+
+    static sendReview(review) {
+        debugger;
+        const Review = {
+            "name": review.name,
+            "rating": review.rating,
+            "comments": review.comments,
+            "restaurant_id": review.restaurant_id
+        }
+        const Options = {
+            method: 'POST',
+            body: JSON.stringify(Review),
+        };
+
+        return fetch(`${DBHelper.Reviews_Database}`, Options)
+    }
+
+    static sendOnline(offReview) {
+        debugger;
+        localStorage.setItem('reviews', JSON.stringify(offReview.data));
+        window.addEventListener('online', (event) => {
+            const review = JSON.parse(localStorage.getItem('reviews'));
+            let offlineReviewUI = document.querySelectorAll('.offline');
+            offlineReviewUI.forEach(elem => {
+                elem.classList.remove("offline");
+                elem.removeChild(document.getElementById('offlineLbl'));
+            });
+            if (review) {
+                DBHelper.addReview(review);
+            }
+            localStorage.removeItem('reviews');
+        })
+    }
+
+
+
+
+    static fetchRestuarantReviews(id) {
+        return fetch(`${DBHelper.Reviews_Database}/?restaurant_id=${id}`)
+            .then(res => res.json()).then(reviews => {
+                var request = indexedDB.open('ReviewsDB', 1);
+                request.onerror = function (event) {
+                    alert("Database error: " + event.target.errorCode);
+                };
+                request.onupgradeneeded = function (event) {
+                    var db = event.target.result;
+                    var objectStore = db.createObjectStore("reviews", { keyPath: "id" });
+                    objectStore.transaction.oncomplete = function (event) {
+                        var reviewObjectStore = db.transaction("reviews", "readwrite").objectStore("reviews");
+                        reviews.forEach(function (review) {
+                            reviewObjectStore.add(review);
+                        });
+                    };
+                };
+                return reviews;
+            })
+    }
 
 }
