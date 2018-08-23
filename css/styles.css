@@ -215,6 +215,18 @@ nav {
         text-transform: uppercase;
     }
 
+.favicon {
+    float: right;
+    font-size: 3rem;
+    margin: 0px 23px 3px 1px;
+    color: orange;
+    cursor: pointer;
+}
+
+.favorite {
+    color: #dd1f38;
+}
+
 /* ====================== Restaurant Details ====================== */
 .inside header {
     position: fixed;

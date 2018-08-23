@@ -277,4 +277,27 @@ class DBHelper {
             })
     }
 
+
+    static changeStatus(resturantId, newStatus) {
+        fetch(`${DBHelper.DATABASE_URL}/${resturantId}/?is_favorite=${newStatus}`, {
+            method: 'PUT'
+        }).then(() => {
+            var request = indexedDB.open('RestaurantDB', 1);
+            request.onerror = function (event) {
+                alert("Database error: " + event.target.errorCode);
+            };
+            request.onupgradeneeded = (event) => {
+                const ib = event.target.result;
+                const objectStore = db.transaction('restaurant', 'readwrite').objectStore('restaurant');
+                const dbGetRestId = objectStore.get(resturantId);
+                dbGetRestId.onsuccess = event => {
+                    const restuarant = event.target.result;
+                    console.log(restuarant);
+                    restuarant.is_favorite = newStatus;
+                    objectStore.put(restuarant);
+                }
+
+            }
+        })
+    }
 }

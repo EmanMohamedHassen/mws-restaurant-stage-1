@@ -1,4 +1,4 @@
-let restaurants,
+﻿let restaurants,
   neighborhoods,
   cuisines
 var map
@@ -156,6 +156,17 @@ createRestaurantHTML = (restaurant) => {
  
   li.append(name);
 
+    const star = document.createElement('i');
+    star.innerHTML = '☆'
+    star.classList.add('favicon');
+    star.onclick = () => {
+        DBHelper.changeStatus(restaurant.id, restaurant.is_favorite);
+        restaurant.is_favorite = restaurant.is_favorite;
+        changeIconClass(star, restaurant.is_favorite);
+    }
+    changeIconClass(star, !restaurant.is_favorite);
+    li.append(star);
+
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
@@ -187,3 +198,13 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
+function changeIconClass(star, isFav) {
+    console.log(isFav);
+    if (isFav ) {
+        star.classList.add('favorite');
+        star.setAttribute('aria-label', 'favorite restaurant!');
+    } else {
+        star.classList.remove('favorite');
+        star.setAttribute('aria-label', 'unfavorite restaurant!');
+    }
+}
