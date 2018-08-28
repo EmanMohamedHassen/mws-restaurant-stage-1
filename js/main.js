@@ -202,9 +202,11 @@ function changeIconClass(star, isFav) {
     console.log(isFav);
     if (isFav ) {
         star.classList.add('favorite');
+        star.setAttribute('aria-role', 'button');
         star.setAttribute('aria-label', 'favorite restaurant!');
     } else {
         star.classList.remove('favorite');
+        star.setAttribute('aria-role', 'button');
         star.setAttribute('aria-label', 'unfavorite restaurant!');
     }
 }
