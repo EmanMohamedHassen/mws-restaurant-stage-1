@@ -21,7 +21,7 @@
 //    }
 //});             
 
-
+window.addEventListener('load', (event) => {
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', { scope: '/' })
         .then(function (reg) {
@@ -31,7 +31,8 @@ if ('serviceWorker' in navigator) {
             // registration failed
             console.log('Registration failed with ' + error);
         });
-}
+    }
+}); 
 
 class DBHelper {
 
@@ -59,9 +60,9 @@ class DBHelper {
           callback(null, restaurants);
 
           var request = indexedDB.open('RestaurantDB', 1);
-          request.onerror = function (event) {
-              alert("Database error: " + event.target.errorCode);
-          };
+          //request.onerror = function (event) {
+          //    alert("Database error: " + event.target.errorCode);
+          //};
           request.onupgradeneeded = function (event) {
               var db = event.target.result;
               var objectStore = db.createObjectStore("restaurants", { keyPath: "id" });
@@ -289,26 +290,35 @@ class DBHelper {
     }
 
 
-    static changeStatus(resturantId, newStatus) {
-        fetch(`${DBHelper.DATABASE_URL}/${resturantId}/?is_favorite=${newStatus}`, {
+    static changeStatus(restaurantId, status) {
+       // debugger;
+        fetch(`${DBHelper.DATABASE_URL}/${restaurantId}/?is_favorite=${status}`, {
             method: 'PUT'
         }).then(() => {
+          //  debugger;
             var request = indexedDB.open('RestaurantDB', 1);
-            request.onerror = function (event) {
-                alert("Database error: " + event.target.errorCode);
+            //request.onerror = function (event) {
+            //    alert("Database error: " + event.target.errorCode);
+            //};
+            request.onupgradeneeded = function (e) {
+                debugger;
+                var db = e.target.result;
+               // console.log(e);
+               // var objectStore = db.createObjectStore("restaurants", { keyPath: "id" });
+              //  objectStore.onsuccess = function (event) {
+                   // var idb = event.target.result;
+                    var restaurantObjectStore = db.transaction("restaurants", "readwrite").objectStore("restaurants");
+                    const dbGetRequest = restaurantObjectStore.get(restaurantId);
+                   // console.log(dbGetRequest);
+                    dbGetRequest.onsuccess = event => {
+                        const restaurant = event.target.result;
+                        console.log(restaurant);
+                        restaurant.is_favorite = status;
+                        restaurantObjectStore.put(restaurant);
+                    }
+               // };
             };
-            request.onupgradeneeded = (event) => {
-                const ib = event.target.result;
-                const objectStore = db.transaction('restaurant', 'readwrite').objectStore('restaurant');
-                const dbGetRestId = objectStore.get(resturantId);
-                dbGetRestId.onsuccess = event => {
-                    const restuarant = event.target.result;
-                    console.log(restuarant);
-                    restuarant.is_favorite = newStatus;
-                    objectStore.put(restuarant);
-                }
-
-            }
+           
         })
     }
 }

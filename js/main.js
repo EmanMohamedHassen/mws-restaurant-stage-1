@@ -159,12 +159,19 @@ createRestaurantHTML = (restaurant) => {
     const star = document.createElement('i');
     star.innerHTML = '☆'
     star.classList.add('favicon');
+    var status;
+    if (restaurant.is_favorite === "true") status = true;
+    else status = false;
+
     star.onclick = () => {
-        DBHelper.changeStatus(restaurant.id, restaurant.is_favorite);
-        restaurant.is_favorite = restaurant.is_favorite;
-        changeIconClass(star, restaurant.is_favorite);
+       // debugger;
+       
+        // DBHelper.changeStatus(restaurant.id, !restaurant.is_favorite);
+        DBHelper.changeStatus(restaurant.id, !status);
+        // restaurant.is_favorite = !restaurant.is_favorite;
+        changeIconClass(star, !status);
     }
-    changeIconClass(star, !restaurant.is_favorite);
+    changeIconClass(star, status);
     li.append(star);
 
   const neighborhood = document.createElement('p');
@@ -199,7 +206,8 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 
 function changeIconClass(star, isFav) {
-    console.log(isFav);
+   // debugger;
+  //  console.log(isFav);
     if (isFav ) {
         star.classList.add('favorite');
         star.setAttribute('aria-role', 'button');
