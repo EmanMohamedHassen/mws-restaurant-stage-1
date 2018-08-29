@@ -164,11 +164,17 @@ createRestaurantHTML = (restaurant) => {
     else status = false;
 
     star.onclick = () => {
-       // debugger;
-       
+        debugger;
+        if (restaurant.is_favorite === "true") status = true;
+        else status = false;
         // DBHelper.changeStatus(restaurant.id, !restaurant.is_favorite);
+        //if (status == true)
         DBHelper.changeStatus(restaurant.id, !status);
-        // restaurant.is_favorite = !restaurant.is_favorite;
+        
+        //else
+        //DBHelper.changeStatus(restaurant.id, true);
+
+        restaurant.is_favorite = ""+!status;
         changeIconClass(star, !status);
     }
     changeIconClass(star, status);
@@ -210,11 +216,11 @@ function changeIconClass(star, isFav) {
   //  console.log(isFav);
     if (isFav ) {
         star.classList.add('favorite');
-        star.setAttribute('aria-role', 'button');
+        star.setAttribute('role', 'button');
         star.setAttribute('aria-label', 'favorite restaurant!');
     } else {
         star.classList.remove('favorite');
-        star.setAttribute('aria-role', 'button');
+        star.setAttribute('role', 'button');
         star.setAttribute('aria-label', 'unfavorite restaurant!');
     }
 }
